@@ -1,0 +1,214 @@
+/* ============================================================
+   Richiamo Coffee — Global Stylesheet
+   assets/css/style.css
+   ============================================================ */
+
+:root {
+  --espresso:  #1C0A00;
+  --roast:     #3B1A08;
+  --caramel:   #C68642;
+  --latte:     #D4A96A;
+  --cream:     #F5E6C8;
+  --foam:      #FDF6EC;
+  --surface:   #F4F1EC;
+  --border:    #EDE8DF;
+  --text-muted:#888;
+}
+
+/* ── Reset & base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--surface);
+  color: var(--espresso);
+  min-height: 100vh;
+}
+
+/* ── Typography ───────────────────────────────────────────── */
+.font-serif { font-family: 'Playfair Display', serif; }
+h1,h2,h3 { font-family: 'Playfair Display', serif; }
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn-espresso {
+  background: var(--espresso);
+  color: var(--cream);
+  border: none;
+  border-radius: .75rem;
+  padding: .7rem 1.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s, transform .1s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+}
+.btn-espresso:hover  { background: var(--roast); color: var(--cream); }
+.btn-espresso:active { transform: scale(.98); }
+
+.btn-caramel {
+  background: var(--caramel);
+  color: var(--espresso);
+  border: none;
+  border-radius: .75rem;
+  padding: .7rem 1.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s, transform .1s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+}
+.btn-caramel:hover  { background: var(--latte); color: var(--espresso); }
+.btn-caramel:active { transform: scale(.98); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--espresso);
+  border: 1.5px solid var(--border);
+  border-radius: .75rem;
+  padding: .65rem 1.4rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+}
+.btn-outline:hover { border-color: var(--caramel); color: var(--caramel); }
+
+/* ── Form controls ────────────────────────────────────────── */
+.rc-input {
+  width: 100%;
+  border: 1.5px solid #ddd;
+  border-radius: .65rem;
+  padding: .65rem .9rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .875rem;
+  color: var(--espresso);
+  background: #fff;
+  transition: border-color .2s, box-shadow .2s;
+}
+.rc-input:focus {
+  outline: none;
+  border-color: var(--caramel);
+  box-shadow: 0 0 0 3px rgba(198,134,66,.12);
+}
+.rc-label {
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--roast);
+  margin-bottom: .4rem;
+  display: block;
+}
+
+/* ── Cards ────────────────────────────────────────────────── */
+.rc-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.rc-card-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f0ebe2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.rc-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: var(--espresso);
+  margin: 0;
+}
+.rc-card-body { padding: 1.25rem; }
+
+/* ── Badges ───────────────────────────────────────────────── */
+.badge-rc {
+  display: inline-block;
+  padding: .25rem .65rem;
+  border-radius: 2rem;
+  font-size: .7rem;
+  font-weight: 600;
+}
+.badge-pending   { background: #FEF3E2; color: #B07A1A; }
+.badge-preparing { background: #EEF4FF; color: #3B6DD8; }
+.badge-ready     { background: #EDFAF4; color: #0F6E56; }
+.badge-completed { background: #F0F0F0; color: #666; }
+.badge-cancelled { background: #FEF0F0; color: #A32D2D; }
+.badge-paid      { background: #EDFAF4; color: #0F6E56; }
+.badge-unpaid    { background: #FEF3E2; color: #B07A1A; }
+
+/* ── Toggle switch ────────────────────────────────────────── */
+.rc-toggle { position: relative; display: inline-block; width: 36px; height: 20px; }
+.rc-toggle input { opacity: 0; width: 0; height: 0; }
+.rc-toggle-slider {
+  position: absolute; cursor: pointer; inset: 0;
+  background: #ddd; border-radius: 20px; transition: .2s;
+}
+.rc-toggle-slider:before {
+  content: ''; position: absolute;
+  width: 14px; height: 14px;
+  left: 3px; bottom: 3px;
+  background: #fff; border-radius: 50%; transition: .2s;
+}
+.rc-toggle input:checked + .rc-toggle-slider { background: var(--caramel); }
+.rc-toggle input:checked + .rc-toggle-slider:before { transform: translateX(16px); }
+
+/* ── Alerts ───────────────────────────────────────────────── */
+.rc-alert {
+  border-radius: .75rem;
+  padding: .7rem 1rem;
+  font-size: .875rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+.rc-alert-success { background: #f0fff4; border: 1px solid #b2dfdb; color: #1a6b4a; }
+.rc-alert-error   { background: #fff0f0; border: 1px solid #fcc;     color: #c0392b; }
+.rc-alert-warning { background: #fffbf0; border: 1px solid #ffe082;  color: #856404; }
+.rc-alert-info    { background: #f0f4ff; border: 1px solid #c3d4f7;  color: #2c5282; }
+
+/* ── Utility ──────────────────────────────────────────────── */
+.text-caramel  { color: var(--caramel) !important; }
+.text-espresso { color: var(--espresso) !important; }
+.text-latte    { color: var(--latte) !important; }
+.bg-espresso   { background: var(--espresso) !important; }
+.bg-foam       { background: var(--foam) !important; }
+
+/* ── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--caramel); }
+
+/* ── Animations ───────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fadeUp { animation: fadeUp .4s ease both; }
+.animate-fadeIn { animation: fadeIn .3s ease both; }
+
+/* ── Print ────────────────────────────────────────────────── */
+@media print {
+  .no-print, nav, .sidebar { display: none !important; }
+  body { background: #fff; }
+}

@@ -1,0 +1,68 @@
+# ============================================================
+#  Richiamo Coffee — Apache Configuration
+#  Place in: C:\xampp\htdocs\richiamo\.htaccess
+# ============================================================
+
+Options -Indexes
+Options -MultiViews
+
+# ── Rewrite engine ────────────────────────────────────────────
+RewriteEngine On
+RewriteBase /richiamo/
+
+# ── Block direct access to sensitive files ────────────────────
+RewriteRule ^config\.php$           - [F,L]
+RewriteRule ^database\.sql$         - [F,L]
+RewriteRule ^fix_passwords\.php$    - [F,L]
+RewriteRule ^README\.md$            - [F,L]
+RewriteRule ^includes/              - [F,L]
+RewriteRule ^\.                     - [F,L]
+
+# ── Custom error pages ────────────────────────────────────────
+ErrorDocument 404 /richiamo/404.php
+ErrorDocument 403 /richiamo/auth/403.php
+
+# ── Security headers ──────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always unset X-Powered-By
+    Header always unset Server
+</IfModule>
+
+# ── Block PHP execution in uploads folder ─────────────────────
+<IfModule mod_rewrite.c>
+    RewriteRule ^assets/img/.*\.php$ - [F,L]
+</IfModule>
+
+# ── Prevent access to backup files ───────────────────────────
+<FilesMatch "\.(bak|backup|sql|log|sh|old|tmp)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ── PHP settings ──────────────────────────────────────────────
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_value session.cookie_httponly 1
+    php_value session.use_strict_mode 1
+    php_value session.cookie_samesite "Strict"
+</IfModule>
+
+# ── Enable compression ────────────────────────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript
+</IfModule>
+
+# ── Cache static assets ───────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>
